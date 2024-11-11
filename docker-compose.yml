@@ -1,0 +1,96 @@
+services:
+  mongo:
+    image: mongo:4.4
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root123
+    volumes:
+      - mongo-data:/data/db
+      - ./dbfiles:/docker-entrypoint-initdb.d
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "1g"
+        reservations:
+          cpus: "0.5"
+          memory: "512m"
+
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=root123
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=root123
+    depends_on:
+      - mongo
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "256m"
+        reservations:
+          cpus: "0.25"
+          memory: "128m"
+
+  backend-spring:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: "1.5g"
+        reservations:
+          cpus: "1.0"
+          memory: "1g"
+
+  backend-express:
+    build:
+      context: ./back-end-ventas
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "512m"
+        reservations:
+          cpus: "0.5"
+          memory: "256m"
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend-spring
+      - backend-express
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"      
+          memory: "256m"
+        reservations:
+          cpus: "0.25"
+          memory: "128m"
+
+volumes:
+  mongo-data:
