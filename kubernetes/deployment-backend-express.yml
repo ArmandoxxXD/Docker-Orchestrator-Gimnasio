@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-express-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-express
+  template:
+    metadata:
+      labels:
+        app: backend-express
+    spec:
+      containers:
+        - name: backend-express
+          image: armandoxx/dockerproyecto-backend-express:1.0.0
+          ports:
+            - containerPort: 3001

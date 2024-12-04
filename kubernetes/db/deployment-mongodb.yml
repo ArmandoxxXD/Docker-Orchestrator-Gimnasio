@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:4.4
+          envFrom:
+            - secretRef:
+                name: mongo-secret
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-data
+            - mountPath: /docker-entrypoint-initdb.d
+              name: init-scripts
+              subPath: init.js
+      volumes:
+        - name: mongo-data
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+        - name: init-scripts
+          configMap:
+            name: mongo-initdb-scripts

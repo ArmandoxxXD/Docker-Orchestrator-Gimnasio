@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-spring-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-spring
+  template:
+    metadata:
+      labels:
+        app: backend-spring
+    spec:
+      containers:
+        - name: backend-spring
+          image: armandoxx/dockerproyecto-backend-spring:1.0.0
+          ports:
+            - containerPort: 8080

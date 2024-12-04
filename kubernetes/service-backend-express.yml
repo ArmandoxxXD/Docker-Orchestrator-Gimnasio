@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-express-service
+spec:
+  selector:
+    app: backend-express
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
