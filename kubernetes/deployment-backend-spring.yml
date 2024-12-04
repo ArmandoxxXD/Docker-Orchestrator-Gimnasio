@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: backend-spring
-          image: armandoxx/dockerproyecto-backend-spring:1.0.0
+          image: armandoxx/dockerproyecto-backend-spring:2.0.0
           ports:
             - containerPort: 8080
