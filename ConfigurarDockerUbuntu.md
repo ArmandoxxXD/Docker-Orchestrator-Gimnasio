@@ -50,7 +50,3 @@ minikube start
 minikube dashboard --url
 
 minikube docker-env
-
-kubectl apply -f ./
-
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
