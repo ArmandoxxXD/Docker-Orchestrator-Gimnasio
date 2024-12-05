@@ -5,21 +5,24 @@
 1. Clona el repositorio del Front-End:
    ```bash
    git clone https://github.com/ArmandoxxXD/front-end-gimnasio.git front-end
-   cd front-end && git checkout docker-deployment
+   cd front-end && git checkout docker-deployment #Docker compose
+   cd front-end && git checkout kubernetes-deployment #Docker kubernetes
    cd ..
    ```
 
 2. Clona el repositorio del Back-End para gestión de ventas:
    ```bash
    git clone https://github.com/ArmandoxxXD/back-end-gimnasio-ventas.git back-end-ventas
-   cd back-end-ventas && git checkout docker-deployment
+   cd back-end-ventas && git checkout docker-deployment #Docker compose
+   cd back-end-ventas && git checkout kubernetes-deployment #Docker kubernetes
    cd ..
    ```
 
 3. Clona el repositorio del Back-End principal:
    ```bash
    git clone https://github.com/ArmandoxxXD/back-end-gimnasio.git back-end
-   cd back-end && git checkout docker-deployment
+   cd back-end && git checkout docker-deployment #Docker compose
+   cd back-end && git checkout kubernetes-deployment #Docker kubernetes
    cd ..
    ```
 
